@@ -20,7 +20,7 @@ const Profile = () => {
     control,
     handleSubmit,
     profileInputData,
-    updateProfile,
+    onUpdate,
   } = useProfile();
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const Profile = () => {
         <AppButton
           title="Update"
           style={styles.btn}
-          onPress={() => handleSubmit(updateProfile)}
+          onPress={handleSubmit(onUpdate)}
         />
       </View>
     </SafeAreaView>

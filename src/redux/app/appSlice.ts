@@ -21,6 +21,12 @@ const appSlice = createSlice({
         state.profile = action?.payload?.data || {};
       },
     );
+    builder.addMatcher(
+      appApi.endpoints.updateProfile.matchFulfilled,
+      (state, action) => {
+        state.profile = action?.payload?.data || {};
+      },
+    );
   },
 });
 

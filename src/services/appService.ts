@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { URLS } from '../constants/urlsConstant';
 import { axiosBaseQuery } from '../redux/reduxUtils';
-import { ProfileResponse } from '../interfaces/appInterface';
+import { ProfileItems, ProfileResponse } from '../interfaces/appInterface';
 
 const appApi = createApi({
   baseQuery: axiosBaseQuery(),
@@ -13,9 +13,16 @@ const appApi = createApi({
         method: 'GET',
       }),
     }),
+    updateProfile: builder.mutation<ProfileResponse, ProfileItems>({
+      query: data => ({
+        url: URLS.profile,
+        method: 'POST',
+        data,
+      }),
+    }),
   }),
 });
 
-export const { useProfileQuery } = appApi;
+export const { useProfileQuery, useUpdateProfileMutation } = appApi;
 
 export default appApi;

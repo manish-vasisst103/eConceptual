@@ -8,7 +8,10 @@ import { logoutAction } from '../../../redux/auth/authActions';
 import { closeModal, openModal } from '../../../helpers/utils';
 import { useForm } from 'react-hook-form';
 import { profileFormSchema } from '../../../helpers/yupHelper';
-import { useProfileQuery } from '../../../services/appService';
+import {
+  useProfileQuery,
+  useUpdateProfileMutation,
+} from '../../../services/appService';
 import { RootState } from '../../../redux/store';
 import { ProfileItems } from '../../../interfaces/appInterface';
 import { useEffect } from 'react';
@@ -16,13 +19,17 @@ import { useProfileData } from '../../../constants/constants';
 
 const useProfile = () => {
   useProfileQuery();
+  const [updateProfile] = useUpdateProfileMutation();
   const profileInputData = useProfileData();
   const navigation =
     useNavigation<NavigationProp<AppRootStackParamList, 'profile'>>();
   const dispatch = useDispatch();
   const profileData = useSelector((state: RootState) => state?.app?.profile);
 
-  const { handleSubmit, control, reset } = useForm<ProfileItems, void>({
+  const { handleSubmit, control, reset, getValues } = useForm<
+    ProfileItems,
+    void
+  >({
     resolver: profileFormSchema,
     mode: 'all',
   });
@@ -43,7 +50,7 @@ const useProfile = () => {
     dispatch(logoutAction());
   };
 
-  const updateProfile = () => {};
+  const onUpdate = () => updateProfile(getValues());
 
   return {
     navigation,
@@ -51,7 +58,7 @@ const useProfile = () => {
     control,
     handleSubmit,
     profileInputData,
-    updateProfile,
+    onUpdate,
   };
 };
 

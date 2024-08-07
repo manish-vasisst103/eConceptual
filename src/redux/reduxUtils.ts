@@ -76,7 +76,6 @@ export const axiosBaseQuery =
       headers?: any;
       transformRequest?: any;
       onUploadProgress?: AxiosRequestConfig['onUploadProgress'];
-      showSuccessToaster: boolean;
     },
     unknown,
     unknown
@@ -92,7 +91,6 @@ export const axiosBaseQuery =
     baseURL,
     cancelToken = undefined,
     onUploadProgress = () => {},
-    showSuccessToaster = false,
   }: any) => {
     const isOnline = await isConnected();
     try {
@@ -116,13 +114,6 @@ export const axiosBaseQuery =
         cancelToken,
         onUploadProgress,
       });
-      if (
-        showSuccessToaster &&
-        result?.status === 200 &&
-        result?.data?.data?.message
-      ) {
-        showToaster(result.data.data.message, 'S');
-      }
       return {
         data: {
           data: result?.data || {},
