@@ -1,50 +1,49 @@
 import { StyleSheet } from 'react-native';
 import { useMemo } from 'react';
-import { useResponsiveScreen, useTheme } from '../../../hooks';
-import { DEFAULT_COLORS } from '../../../styles';
+import { DEFAULT_COLORS, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../styles';
+import { useResponsiveScreen } from '../../../hooks/useResponsiveScreen';
 
 export const useDropdownStyle = () => {
-  const { wp, hp, screenHeight, screenWidth } = useResponsiveScreen();
-  const { colors } = useTheme();
+  const { wp, hp } = useResponsiveScreen();
   const styles = useMemo(() => {
     return StyleSheet.create({
       mainContainer: {
-        height: screenHeight,
-        width: screenWidth,
+        height: SCREEN_HEIGHT,
+        width: SCREEN_WIDTH,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: DEFAULT_COLORS.blackOpacity,
       },
       container: {
-        backgroundColor: colors.background,
+        backgroundColor: DEFAULT_COLORS.background,
         borderRadius: 26,
-        width: screenWidth - wp(44),
+        width: SCREEN_WIDTH - wp(44),
         paddingVertical: hp(28),
         paddingHorizontal: wp(22),
       },
       title: {
         fontSize: 18,
         textAlign: 'center',
-        color: colors.gray,
+        color: DEFAULT_COLORS.gray,
       },
       itemContainer: {
         paddingVertical: 16,
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: colors.gray,
+        borderBottomColor: DEFAULT_COLORS.gray,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
       },
       item: {
         fontSize: 16,
-        color: colors.gray,
+        color: DEFAULT_COLORS.gray,
         width: '90%',
       },
       scroll: {
-        maxHeight: screenHeight / 1.8,
+        maxHeight: SCREEN_HEIGHT / 1.8,
       },
     });
-  }, [colors, wp, hp, screenHeight, screenWidth]);
+  }, [wp, hp]);
 
-  return { styles, colors };
+  return styles;
 };

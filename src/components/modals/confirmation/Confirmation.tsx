@@ -3,7 +3,10 @@ import { View } from 'react-native';
 import { useConfirmationStyle } from './ConfirmationStyle';
 import { UsableModalComponentProp, ModalfyParams } from 'react-native-modalfy';
 import AppText from '../../text/AppText';
-import FooterButton from '../../footerButton/FooterButton';
+import { closeModal } from '../../../helpers/utils';
+import { MODALS } from '../../../constants/routeConstant';
+import AppButton from '../../button/AppButton';
+// import FooterButton from '../../footerButton/FooterButton';
 interface Props {
   modal: UsableModalComponentProp<ModalfyParams, keyof ModalfyParams>;
 }
@@ -12,34 +15,28 @@ const ConfirmationModal: React.FC<Props> = ({ modal }) => {
   const { styles } = useConfirmationStyle();
   const title = modal.getParam('title', 'Are you sure?');
   const subTitle = modal.getParam('subTitle', '');
-  const cancelLabel = modal.getParam('cancelLabel', 'Cancel');
-  const confirmLabel = modal.getParam('confirmLabel', 'Confirm');
   const onPressConfirm = modal.getParam('onPressConfirm', null);
-  const onPressCancel = modal.getParam('onPressCancel', null);
 
-  const renderSubTitle = () => {
-    if (typeof subTitle === 'object') {
-      return subTitle;
-    }
-    if (typeof subTitle === 'string') {
-      return <AppText style={styles.subTitle}>{subTitle}</AppText>;
-    }
-    return <></>;
-  };
+  const onCancel = () => closeModal(MODALS.confirmation);
 
   return (
     <View style={styles.container}>
       <AppText style={styles.title}>{title}</AppText>
-      {renderSubTitle()}
-      {(onPressCancel || onPressConfirm) && (
-        <FooterButton
-          containerStyle={styles.footer}
-          onPressCancel={onPressCancel}
-          onPressConfirm={onPressConfirm}
-          cancelLabel={cancelLabel}
-          confirmLabel={confirmLabel}
+      <AppText style={styles.subTitle}>{subTitle}</AppText>
+      <View style={styles.footerContainer}>
+        <AppButton
+          labelStyle={styles.label}
+          style={styles.button}
+          title={'No'}
+          onPress={onCancel}
         />
-      )}
+        <AppButton
+          labelStyle={styles.label}
+          style={[styles.button, styles.confirmButton]}
+          title={'Yes'}
+          onPress={onPressConfirm}
+        />
+      </View>
     </View>
   );
 };

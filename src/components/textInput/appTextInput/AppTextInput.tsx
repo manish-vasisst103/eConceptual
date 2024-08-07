@@ -1,17 +1,16 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import {
   TextInput,
   View,
   Pressable,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
   PressableStateCallbackType,
   TextInputProps,
+  KeyboardTypeOptions,
+  ViewStyle,
 } from 'react-native';
 import { useAppTextInputStyle } from './AppTextInputStyle';
-import { useTheme } from '../../../hooks';
 import AppText from '../../text/AppText';
+import { DEFAULT_COLORS } from '../../../styles';
 
 export interface InputProps extends TextInputProps {
   error?: string | undefined;
@@ -19,15 +18,8 @@ export interface InputProps extends TextInputProps {
   isRequired?: boolean;
   icon?: ReactNode | ((state: PressableStateCallbackType) => ReactNode);
   onIconPress?: () => void | undefined;
-  textStyle?: StyleProp<TextStyle>;
-  style?: StyleProp<ViewStyle>;
-  leftIcon?: JSX.Element;
-  type?: 'number' | 'email' | 'phone' | 'text' | 'percentage' | 'password';
-  autoCapitalize?: 'characters' | 'words' | 'sentences' | 'none';
-  leftIconStyle?: StyleProp<ViewStyle>;
-  rightIconStyle?: StyleProp<ViewStyle>;
-  inputRef?: any;
-  errorTextColor?: string;
+  keyboardType?: KeyboardTypeOptions;
+  style?: ViewStyle;
 }
 
 const AppTextInput = ({
@@ -37,47 +29,15 @@ const AppTextInput = ({
   isRequired,
   icon,
   onIconPress,
-  textStyle,
   value,
   onChangeText,
   placeholder,
   onBlur,
-  placeholderTextColor,
-  leftIcon,
-  type,
-  autoCapitalize = 'none',
-  leftIconStyle,
-  rightIconStyle,
   onFocus,
-  inputRef,
-  onPressIn,
-  textContentType,
-  errorTextColor,
+  keyboardType,
   ...rest
 }: InputProps) => {
-  const styles = useAppTextInputStyle({
-    leftIcon,
-    editable: rest?.editable,
-    multiline: rest?.multiline,
-  });
-  const { colors } = useTheme();
-  const [scrollEnabled, setScrollEnabled] = useState<boolean>(false);
-
-  const getKeyboardType = () => {
-    switch (type) {
-      case 'email':
-        return 'email-address';
-      case 'number':
-        return 'numeric';
-      case 'phone':
-        return 'phone-pad';
-      case 'percentage':
-        return 'numeric';
-      default:
-        return 'default';
-    }
-  };
-
+  const styles = useAppTextInputStyle();
   return (
     <>
       {label ? (
@@ -89,54 +49,33 @@ const AppTextInput = ({
         </AppText>
       ) : null}
       <View style={[styles.container, style, error ? styles.errorWrapper : {}]}>
-        {leftIcon ? (
-          <View style={[styles.leftIcon, leftIconStyle]}>{leftIcon}</View>
-        ) : null}
         <TextInput
           onBlur={e => {
-            setScrollEnabled(false);
             if (onBlur) {
               onBlur(e);
             }
           }}
-          scrollEnabled={rest?.multiline ? scrollEnabled : false}
-          ref={inputRef}
-          keyboardType={getKeyboardType()}
+          keyboardType={keyboardType || 'default'}
           placeholder={placeholder}
-          placeholderTextColor={placeholderTextColor || colors.gray}
-          value={value}
+          placeholderTextColor={DEFAULT_COLORS.gray}
+          value={value?.toString?.()}
+          autoCapitalize={'none'}
           onChangeText={onChangeText}
-          style={[styles.textInputStyles, textStyle]}
-          autoCapitalize={autoCapitalize}
+          style={styles.textInputStyles}
           onFocus={e => {
-            setTimeout(() => {
-              setScrollEnabled(true);
-            }, 1200);
             if (onFocus) {
               onFocus(e);
             }
           }}
-          textContentType={textContentType}
-          onPressIn={onPressIn}
           {...rest}
         />
         {icon ? (
-          <Pressable
-            style={[styles.rightIcon, rightIconStyle]}
-            onPress={onIconPress}>
+          <Pressable style={styles.rightIcon} onPress={onIconPress}>
             {icon}
           </Pressable>
         ) : null}
       </View>
-      {error && (
-        <AppText
-          style={[
-            styles.error,
-            errorTextColor ? { color: errorTextColor } : {},
-          ]}>
-          {error}
-        </AppText>
-      )}
+      {error && <AppText style={styles.error}>{error}</AppText>}
     </>
   );
 };

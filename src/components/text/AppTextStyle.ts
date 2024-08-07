@@ -1,26 +1,26 @@
 import { StyleSheet, TextStyle } from 'react-native';
 import { useMemo } from 'react';
-import { useResponsiveScreen, useTheme } from '../../hooks';
+import { useResponsiveScreen } from '../../hooks/useResponsiveScreen';
+import { DEFAULT_COLORS } from '../../styles';
 interface props {
   style?: TextStyle;
   size?: number;
 }
 
 export const useAppTextStyle = ({ style, size }: props) => {
-  const { colors } = useTheme();
   const { hp } = useResponsiveScreen();
   const styles = useMemo(() => {
     return StyleSheet.create({
       container: {
         fontSize: size || 14,
-        color: colors.primary,
+        color: DEFAULT_COLORS.primary,
         ...style,
       },
       require: {
-        color: colors.error,
+        color: DEFAULT_COLORS.error,
       },
       label: {
-        color: colors.gray,
+        color: DEFAULT_COLORS.gray,
         alignSelf: 'flex-start',
         marginVertical: 14,
         fontSize: 16,
@@ -30,13 +30,13 @@ export const useAppTextStyle = ({ style, size }: props) => {
         marginVertical: 8,
       },
       error: {
-        color: colors.error,
+        color: DEFAULT_COLORS.error,
         textAlign: 'left',
         alignSelf: 'flex-start',
         marginTop: hp(4),
       },
     });
-  }, [size, colors, style, hp]);
+  }, [size, style, hp]);
 
   return styles;
 };

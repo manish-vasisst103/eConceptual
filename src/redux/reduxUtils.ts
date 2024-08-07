@@ -125,7 +125,7 @@ export const axiosBaseQuery =
       }
       return {
         data: {
-          data: result?.data?.data || {},
+          data: result?.data || {},
           status: result?.status,
         },
       };

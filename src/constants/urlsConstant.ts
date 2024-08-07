@@ -1,7 +1,7 @@
 export const URLS = {
   // Auth URLs
-  login: '/Account/LoginUser',
+  login: '/login',
 
   //App URLs
-  orgList: '/Organisation/List',
+  profile: '/profile',
 };

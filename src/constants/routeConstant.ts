@@ -4,6 +4,7 @@ export type AuthRootStackParamList = {
 
 export type AppRootStackParamList = {
   home: undefined;
+  profile: undefined;
 };
 
 export const MODALS = {

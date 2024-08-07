@@ -1,30 +1,17 @@
-import { PressableStateCallbackType, StyleSheet } from 'react-native';
-import { ReactNode, useMemo } from 'react';
-import { useResponsiveScreen, useTheme } from '../../../hooks';
-import { SHADOW } from '../../../styles';
+import { StyleSheet } from 'react-native';
+import { useMemo } from 'react';
+import { DEFAULT_COLORS, SHADOW } from '../../../styles';
+import { useResponsiveScreen } from '../../../hooks/useResponsiveScreen';
 
-interface props {
-  leftIcon?: ReactNode | ((state: PressableStateCallbackType) => ReactNode);
-  editable?: boolean;
-  multiline?: boolean;
-}
-
-export const useAppTextInputStyle = ({
-  leftIcon,
-  editable = true,
-  multiline = false,
-}: props) => {
-  const { colors } = useTheme();
+export const useAppTextInputStyle = () => {
   const { wp, hp } = useResponsiveScreen();
   const styles = useMemo(() => {
     return StyleSheet.create({
       container: {
         width: '100%',
-        backgroundColor: colors.white,
-        opacity: !editable ? 0.7 : 1,
-        height: multiline ? 84 : 52,
+        backgroundColor: DEFAULT_COLORS.white,
+        height: 52,
         justifyContent: 'center',
-        paddingTop: multiline ? hp(4) : 0,
         borderRadius: 6,
         paddingHorizontal: 16,
         ...SHADOW.shadow2,
@@ -38,30 +25,29 @@ export const useAppTextInputStyle = ({
         right: 10,
       },
       error: {
-        color: colors.error,
+        color: DEFAULT_COLORS.error,
         textAlign: 'left',
         alignSelf: 'flex-start',
         marginTop: hp(4),
       },
       label: {
-        color: colors.gray,
+        color: DEFAULT_COLORS.gray,
         marginVertical: 14,
         alignSelf: 'flex-start',
         fontSize: 16,
       },
       errorWrapper: {
         borderWidth: 0.8,
-        borderColor: colors.error,
+        borderColor: DEFAULT_COLORS.error,
       },
       textInputStyles: {
-        color: colors.gray,
-        paddingLeft: leftIcon ? wp(28) : 0,
+        color: DEFAULT_COLORS.gray,
         paddingRight: wp(8),
-        textAlignVertical: multiline ? 'top' : 'center',
+        textAlignVertical: 'center',
         height: '100%',
       },
       prefixTextStyles: {
-        color: colors.black,
+        color: DEFAULT_COLORS.black,
         marginEnd: 4,
         textAlignVertical: 'center',
         alignSelf: 'center',
@@ -73,13 +59,9 @@ export const useAppTextInputStyle = ({
         justifyContent: 'space-between',
         alignItems: 'center',
       },
-      leftIcon: {
-        position: 'absolute',
-        left: wp(14),
-      },
       floatingLabel: {
         position: 'absolute',
-        backgroundColor: colors.white,
+        backgroundColor: DEFAULT_COLORS.white,
         top: -10,
         left: 12,
         paddingHorizontal: 5,
@@ -89,7 +71,7 @@ export const useAppTextInputStyle = ({
         right: wp(12),
       },
     });
-  }, [colors, wp, leftIcon, editable, hp, multiline]);
+  }, [hp, wp]);
 
   return styles;
 };

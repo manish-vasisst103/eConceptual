@@ -1,10 +1,9 @@
 import { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { useResponsiveScreen, useTheme } from '../../hooks';
-import { SHADOW } from '../../styles';
+import { DEFAULT_COLORS, SHADOW } from '../../styles';
+import { useResponsiveScreen } from '../../hooks/useResponsiveScreen';
 
 export const useDropdownStyle = () => {
-  const { colors } = useTheme();
   const { hp } = useResponsiveScreen();
   const styles = useMemo(() => {
     return StyleSheet.create({
@@ -13,7 +12,7 @@ export const useDropdownStyle = () => {
       },
       btnContainer: {
         width: '100%',
-        backgroundColor: colors.white,
+        backgroundColor: DEFAULT_COLORS.white,
         height: 52,
         justifyContent: 'space-between',
         flexDirection: 'row',
@@ -23,20 +22,26 @@ export const useDropdownStyle = () => {
         ...SHADOW.shadow2,
       },
       btnLabel: {
-        color: colors.gray,
+        color: DEFAULT_COLORS.gray,
       },
       error: {
-        color: colors.error,
+        color: DEFAULT_COLORS.error,
         textAlign: 'left',
         alignSelf: 'flex-start',
         marginTop: hp(4),
       },
       errorWrapper: {
         borderWidth: 0.8,
-        borderColor: colors.error,
+        borderColor: DEFAULT_COLORS.error,
+      },
+      label: {
+        color: DEFAULT_COLORS.gray,
+        alignSelf: 'flex-start',
+        marginVertical: 14,
+        fontSize: 16,
       },
     });
-  }, [colors, hp]);
+  }, [hp]);
 
-  return { styles, colors };
+  return styles;
 };

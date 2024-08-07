@@ -1,16 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
 import { useDropdownStyle } from './DropdownStyle';
 import AppText from '../text/AppText';
 import Svg from '../../assets/svg';
 import { openModal } from '../../helpers/utils';
 import { MODALS } from '../../constants/routeConstant';
-import { Label } from '../text/Label';
+import { DEFAULT_COLORS } from '../../styles';
 
 interface DataItem {
-  id: number;
   name: string;
-  [key: string]: any;
 }
 
 export interface DropdownProps {
@@ -20,7 +18,6 @@ export interface DropdownProps {
   data: Array<DataItem>;
   error?: string;
   label?: string;
-  isRequired?: boolean;
 }
 
 const Dropdown = React.memo(
@@ -31,9 +28,8 @@ const Dropdown = React.memo(
     data,
     error,
     label,
-    isRequired,
   }: DropdownProps) => {
-    const { styles, colors } = useDropdownStyle();
+    const styles = useDropdownStyle();
 
     const openDropdown = () => {
       openModal(MODALS.dropdown, {
@@ -43,21 +39,26 @@ const Dropdown = React.memo(
       });
     };
 
-    const getItemLabel = useMemo(() => {
-      const filterData = data?.filter?.(i => i?.id === val);
-      return filterData?.length ? filterData[0]?.name : '';
-    }, [data, val]);
-
     return (
-      <View style={[styles.container, containerStyle]}>
-        {label && <Label label={label} isRequired={isRequired} />}
+      <View style={styles.container}>
+        <AppText style={styles.label} fontWeight="regular">
+          {label || ''}
+        </AppText>
         <Pressable
           onPress={openDropdown}
-          style={[styles.btnContainer, error ? styles.errorWrapper : {}]}>
+          style={[
+            styles.btnContainer,
+            error ? styles.errorWrapper : {},
+            containerStyle,
+          ]}>
           <AppText fontWeight="regular" style={styles.btnLabel}>
-            {getItemLabel || 'Please select'}
+            {val || 'Please select'}
           </AppText>
-          <Svg.arrowDownIcon height={16} width={16} fill={colors.gray} />
+          <Svg.arrowDownIcon
+            height={16}
+            width={16}
+            fill={DEFAULT_COLORS.gray}
+          />
         </Pressable>
         {error && <AppText style={styles.error}>{error}</AppText>}
       </View>

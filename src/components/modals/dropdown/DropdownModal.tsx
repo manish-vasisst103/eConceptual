@@ -6,39 +6,44 @@ import AppText from '../../text/AppText';
 import Svg from '../../../assets/svg';
 import { closeModal } from '../../../helpers/utils';
 import { MODALS } from '../../../constants/routeConstant';
+import { DEFAULT_COLORS } from '../../../styles';
 interface Props {
   modal: UsableModalComponentProp<ModalfyParams, keyof ModalfyParams>;
 }
 
 const DropdownModal: React.FC<Props> = ({ modal }) => {
-  const { styles, colors } = useDropdownStyle();
+  const styles = useDropdownStyle();
   const data = modal.getParam('data', []);
   const onPressItem = modal.getParam('onPressItem', () => {});
   const val = modal.getParam('val', null);
 
   const onPress = useCallback(
-    (id: number) => {
-      onPressItem(id);
+    (name: string) => {
+      onPressItem(name);
       closeModal(MODALS.dropdown);
     },
     [onPressItem],
   );
 
   const renderItems = useCallback(
-    (item: any, index: number) => (
+    (item: { name: string }) => (
       <Pressable
-        key={index?.toString?.()}
+        key={item?.name}
         style={styles.itemContainer}
-        onPress={() => onPress(item?.id)}>
+        onPress={() => onPress(item?.name)}>
         <AppText numberOfLines={1} style={styles.item}>
           {item?.name || ''}
         </AppText>
-        {val === item?.id && (
-          <Svg.multiCheckIcon height={18} width={18} fill={colors.gray} />
+        {val?.toLowerCase?.() === item?.name?.toLowerCase?.() && (
+          <Svg.multiCheckIcon
+            height={18}
+            width={18}
+            fill={DEFAULT_COLORS.gray}
+          />
         )}
       </Pressable>
     ),
-    [styles, colors, onPress, val],
+    [styles, onPress, val],
   );
 
   return (

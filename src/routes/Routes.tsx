@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   NavigationContainer,
   useNavigationContainerRef,
@@ -14,10 +14,9 @@ import {
 } from '../constants/routeConstant';
 import Login from '../views/login/Login';
 import Home from '../views/home/Home';
-
-const globalProps: any = global;
-
-globalProps.currentScreen = '';
+import { DEFAULT_COLORS, FONTS } from '../styles';
+import { setAuthToken } from '../helpers/api';
+import Profile from '../views/profile/Profile';
 
 const Auth = createNativeStackNavigator<AuthRootStackParamList>();
 const App = createNativeStackNavigator<AppRootStackParamList>();
@@ -34,15 +33,39 @@ const AuthStack = () => {
 
 const AppStack = () => {
   return (
-    <App.Navigator initialRouteName={'home'}>
-      <App.Screen name={'home'} component={Home} />
+    <App.Navigator
+      screenOptions={() => ({
+        headerBackTitleVisible: false,
+        headerTintColor: DEFAULT_COLORS.white,
+        headerStyle: {
+          backgroundColor: DEFAULT_COLORS.primary,
+        },
+        headerTitleStyle: {
+          fontFamily: FONTS.regular,
+        },
+      })}
+      initialRouteName={'home'}>
+      <App.Screen
+        options={{ headerTitle: 'Home' }}
+        name={'home'}
+        component={Home}
+      />
+      <App.Screen
+        options={{ headerTitle: 'Edit Profile' }}
+        name={'profile'}
+        component={Profile}
+      />
     </App.Navigator>
   );
 };
 
 const Routes = () => {
   const navigationRef = useNavigationContainerRef();
-  const token = useSelector((state: RootState) => state?.auth?.token) || {};
+  const token = useSelector((state: RootState) => state?.auth?.token) || '';
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, [token]);
 
   return (
     <SafeAreaProvider>

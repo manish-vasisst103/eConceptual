@@ -1,0 +1,97 @@
+import { useMemo } from 'react';
+import { ProfileInputItems } from '../interfaces/appInterface';
+
+export const USER_IMAGE =
+  'https://www.heysaturday.co/wp-content/uploads/2016/11/best-dating-profile-photos-women-e.jpg';
+
+export const useProfileData: () => ProfileInputItems[] = () =>
+  useMemo(
+    () => [
+      {
+        id: 1,
+        name: 'name',
+        label: 'Username',
+        placeholder: 'Enter name',
+      },
+      {
+        id: 2,
+        name: 'email',
+        label: 'Email',
+        placeholder: 'Enter email',
+        keyboardType: 'email-address',
+      },
+      {
+        id: 3,
+        name: 'city',
+        label: 'City',
+        placeholder: 'Enter city',
+      },
+      {
+        id: 4,
+        name: 'country',
+        label: 'Country',
+        placeholder: 'Enter country',
+        data: COUNTRIES,
+      },
+      {
+        id: 5,
+        name: 'pincode',
+        label: 'Pincode',
+        placeholder: 'Enter pincode',
+      },
+    ],
+    [],
+  );
+
+export const COUNTRIES = [
+  { name: 'China' },
+  { name: 'India' },
+  { name: 'United States' },
+  { name: 'Indonesia' },
+  { name: 'Pakistan' },
+  { name: 'Brazil' },
+  { name: 'Nigeria' },
+  { name: 'Bangladesh' },
+  { name: 'Russia' },
+  { name: 'Mexico' },
+  { name: 'Japan' },
+  { name: 'Ethiopia' },
+  { name: 'Philippines' },
+  { name: 'Egypt' },
+  { name: 'Vietnam' },
+  { name: 'DR Congo' },
+  { name: 'Turkey' },
+  { name: 'Iran' },
+  { name: 'Germany' },
+  { name: 'Thailand' },
+  { name: 'United Kingdom' },
+  { name: 'France' },
+  { name: 'Italy' },
+  { name: 'Tanzania' },
+  { name: 'South Africa' },
+  { name: 'Myanmar' },
+  { name: 'Kenya' },
+  { name: 'South Korea' },
+  { name: 'Colombia' },
+  { name: 'Spain' },
+  { name: 'Uganda' },
+  { name: 'Argentina' },
+  { name: 'Algeria' },
+  { name: 'Sudan' },
+  { name: 'Ukraine' },
+  { name: 'Iraq' },
+  { name: 'Afghanistan' },
+  { name: 'Poland' },
+  { name: 'Canada' },
+  { name: 'Morocco' },
+  { name: 'Saudi Arabia' },
+  { name: 'Uzbekistan' },
+  { name: 'Peru' },
+  { name: 'Angola' },
+  { name: 'Malaysia' },
+  { name: 'Mozambique' },
+  { name: 'Ghana' },
+  { name: 'Yemen' },
+  { name: 'Nepal' },
+  { name: 'Venezuela' },
+];

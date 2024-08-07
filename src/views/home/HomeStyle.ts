@@ -4,7 +4,7 @@ import { useResponsiveScreen } from '../../hooks/useResponsiveScreen';
 import { DEFAULT_COLORS } from '../../styles';
 
 export const useHomeStyle = () => {
-  const { hp, wp } = useResponsiveScreen();
+  const { wp } = useResponsiveScreen();
   const styles = useMemo(() => {
     return StyleSheet.create({
       container: {
