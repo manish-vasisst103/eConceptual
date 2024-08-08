@@ -71,4 +71,6 @@ The application supports offline mode by utilizing `redux-persist` to store user
   yarn start
   Run Tests:
 
-Feel free to adjust any details according to your project's specifics.
+4. **Author:**
+  ```sh
+  Manish Nagda
