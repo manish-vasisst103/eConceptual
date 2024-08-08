@@ -55,22 +55,13 @@ The application supports offline mode by utilizing `redux-persist` to store user
    git clone https://github.com/manish-vasisst103/eConceptual.git
    cd <eConceptual>
 
-2. **Install Dependencies:**
+2. **Install Dependencies and Run Application:**
   ```sh
   Copy code
   npm install
   # or
   yarn install
-
-2. **Install Dependencies:**
-  ```sh
-  Copy code
-  npm install
-  # or
-  yarn install
-3. **Run the Application:**
-  ```sh
-  Copy code
+  
   npm start
   # or
   yarn start
