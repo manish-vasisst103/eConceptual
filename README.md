@@ -61,7 +61,6 @@ The application supports offline mode by utilizing `redux-persist` to store user
   npm install
   # or
   yarn install
-  Run the Application:
 
 3. **Run the Application:**
   ```sh
@@ -69,9 +68,3 @@ The application supports offline mode by utilizing `redux-persist` to store user
   npm start
   # or
   yarn start
-  Run Tests:
-
-
-## Author
-
-  **Manish Nagda**
