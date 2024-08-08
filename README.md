@@ -62,6 +62,12 @@ The application supports offline mode by utilizing `redux-persist` to store user
   # or
   yarn install
 
+2. **Install Dependencies:**
+  ```sh
+  Copy code
+  npm install
+  # or
+  yarn install
 3. **Run the Application:**
   ```sh
   Copy code
