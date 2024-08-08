@@ -24,7 +24,7 @@ const Home = () => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <Pressable onPress={onProfilePress}>
+        <Pressable hitSlop={30} onPress={onProfilePress}>
           <Svg.userIcon fill={DEFAULT_COLORS.white} height={24} width={24} />
         </Pressable>
       ),

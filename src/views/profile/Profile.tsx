@@ -24,7 +24,7 @@ const Profile = () => {
     navigation.setOptions({
       // eslint-disable-next-line react/no-unstable-nested-components
       headerRight: () => (
-        <Pressable onPress={logoutConfirmation}>
+        <Pressable hitSlop={30} onPress={logoutConfirmation}>
           <Svg.logoutIcon fill={DEFAULT_COLORS.white} height={24} width={24} />
         </Pressable>
       ),
