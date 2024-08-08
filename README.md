@@ -1,3 +1,4 @@
+# eConceptual
 Project Documentation
 Overview
 This project is a React Native application that includes a simple user authentication system, a product listing page with pagination, and a profile management screen. The application also supports offline functionality.
