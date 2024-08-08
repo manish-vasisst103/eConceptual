@@ -1,16 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
-import { Image, Pressable, SafeAreaView, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Pressable, SafeAreaView, View } from 'react-native';
 import { useProfileStyle } from './ProfileStyle';
-import AppText from '../../components/text/AppText';
 import useProfile from './hooks/useProfile';
 import Svg from '../../assets/svg';
 import { DEFAULT_COLORS } from '../../styles';
-import { USER_IMAGE } from '../../constants/constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import AppInputController from '../../controller/AppInputController';
-import { ProfileInputItems } from '../../interfaces/appInterface';
-import DropdownController from '../../controller/DropdownController';
 import AppButton from '../../components/button/AppButton';
+import InputField from './components/InputField';
+import ProfileHeader from './components/ProfileHeader';
 
 const Profile = () => {
   const { styles } = useProfileStyle();
@@ -34,31 +31,6 @@ const Profile = () => {
     });
   }, [navigation, styles, logoutConfirmation]);
 
-  const renderInput = useCallback(
-    (item: ProfileInputItems) =>
-      item?.id === 4 ? (
-        <DropdownController
-          control={control}
-          containerStyle={styles.input}
-          key={item?.id}
-          name={item?.name}
-          label={item?.label}
-          data={item?.data || []}
-        />
-      ) : (
-        <AppInputController
-          control={control}
-          style={styles.input}
-          key={item?.id}
-          name={item?.name}
-          label={item?.label}
-          placeholder={item?.placeholder}
-          keyboardType={item?.keyboardType}
-        />
-      ),
-    [control, styles],
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
@@ -71,20 +43,11 @@ const Profile = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.contentContainer}
           style={styles.scrollContainer}>
-          <View style={styles.profileWrapper}>
-            <Image
-              source={{ uri: USER_IMAGE }}
-              resizeMode="cover"
-              style={styles.img}
-            />
-          </View>
-          <Pressable>
-            <AppText fontWeight="bold" style={styles.changeImage}>
-              Change Picture
-            </AppText>
-          </Pressable>
+          <ProfileHeader />
           <View style={styles.inputContainer}>
-            {profileInputData?.map(renderInput)}
+            {profileInputData?.map(item => (
+              <InputField control={control} item={item} />
+            ))}
           </View>
         </KeyboardAwareScrollView>
         <AppButton

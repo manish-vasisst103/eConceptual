@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { store } from '../redux/store';
+import { logoutAction } from '../redux/auth/authActions';
 
 export const axiosInstance = axios.create({
   baseURL: 'https://econceptual-interview-mock.vercel.app/api/', // Setup static because there are not environments so.
@@ -27,6 +29,9 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async error => {
+    if (error?.response?.status === 401) {
+      store.dispatch(logoutAction());
+    }
     return Promise.reject(error);
   },
 );

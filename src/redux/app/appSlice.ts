@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProfileItems } from '../../interfaces/appInterface';
 import appApi from '../../services/appService';
+import { showToaster } from '../../helpers/utils';
 
 export interface appState {
   profile: ProfileItems | object;
@@ -24,6 +25,7 @@ const appSlice = createSlice({
     builder.addMatcher(
       appApi.endpoints.updateProfile.matchFulfilled,
       (state, action) => {
+        showToaster('Profile has successfully updated', 'S');
         state.profile = action?.payload?.data || {};
       },
     );
