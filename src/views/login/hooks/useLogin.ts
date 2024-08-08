@@ -9,10 +9,6 @@ const useLogin = () => {
   const { handleSubmit, control, getValues } = useForm({
     resolver: loginFormSchema,
     mode: 'all',
-    defaultValues: {
-      email: 'user@econceptual.com',
-      password: 'user-password',
-    },
   });
 
   const onLogin = () => login(getValues());
