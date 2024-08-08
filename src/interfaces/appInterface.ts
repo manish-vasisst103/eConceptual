@@ -32,3 +32,16 @@ export interface ProfileInputItems {
   id: number;
   data?: { name: string }[];
 }
+
+export interface ProductListResponse {
+  data: ProductListItems[];
+  status: number;
+}
+
+export interface ProductListItems {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+}

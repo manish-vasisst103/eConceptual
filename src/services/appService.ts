@@ -1,7 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { URLS } from '../constants/urlsConstant';
 import { axiosBaseQuery } from '../redux/reduxUtils';
-import { ProfileItems, ProfileResponse } from '../interfaces/appInterface';
+import {
+  ProductListResponse,
+  ProfileItems,
+  ProfileResponse,
+} from '../interfaces/appInterface';
 
 const appApi = createApi({
   baseQuery: axiosBaseQuery(),
@@ -20,9 +24,16 @@ const appApi = createApi({
         data,
       }),
     }),
+    products: builder.query<ProductListResponse, number>({
+      query: page => ({
+        url: URLS.product(page),
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const { useProfileQuery, useUpdateProfileMutation } = appApi;
+export const { useProfileQuery, useUpdateProfileMutation, useProductsQuery } =
+  appApi;
 
 export default appApi;

@@ -9,7 +9,7 @@ export const LoadingIndicator = (
   ref: React.Ref<unknown> | undefined,
 ) => {
   const { styles } = useLoadingIndicatorStyle();
-  const [showLoader, setShowLoader] = useState(false);
+  const [showLoader, setShowLoader] = useState<Boolean>(false);
   useImperativeHandle(ref, () => ({
     showAppLoader: showAppLoader,
     hideAppLoader: hideAppLoader,

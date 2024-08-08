@@ -8,6 +8,8 @@ import userIcon from './user.svg';
 import logoutIcon from './logout.svg';
 import arrowDownIcon from './arrow-down.svg';
 import multiCheckIcon from './multi-check.svg';
+import starFillIcon from './star-fill.svg';
+import starIcon from './star.svg';
 
 export default {
   errorToastIcon,
@@ -20,4 +22,6 @@ export default {
   logoutIcon,
   arrowDownIcon,
   multiCheckIcon,
+  starFillIcon,
+  starIcon,
 };

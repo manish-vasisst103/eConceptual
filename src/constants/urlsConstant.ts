@@ -4,4 +4,5 @@ export const URLS = {
 
   //App URLs
   profile: '/profile',
+  product: (page: number) => `/product?page=${page}`,
 };

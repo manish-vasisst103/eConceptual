@@ -42,7 +42,7 @@ const initialToast = {
 export const Toaster = (props: any, ref: React.Ref<unknown> | undefined) => {
   const translateYRef = useRef(new Animated.Value(220));
   const [toast, setToast] = useState(initialToast);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<Boolean>(false);
   const timeout = useRef<any>();
   const { keyboardHeight, keyboardShown } = useKeyboard();
   const TOAST_TITLE = toast.title

@@ -46,7 +46,11 @@ const Profile = () => {
           <ProfileHeader />
           <View style={styles.inputContainer}>
             {profileInputData?.map(item => (
-              <InputField control={control} item={item} />
+              <InputField
+                key={item?.id?.toString?.()}
+                control={control}
+                item={item}
+              />
             ))}
           </View>
         </KeyboardAwareScrollView>
