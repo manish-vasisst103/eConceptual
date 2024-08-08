@@ -29,6 +29,7 @@ export const useProfileStyle = () => {
         borderRadius: 60,
         borderWidth: 4,
         borderColor: DEFAULT_COLORS.white,
+        backgroundColor: DEFAULT_COLORS.white,
         marginBottom: -52,
       },
       scrollContainer: {

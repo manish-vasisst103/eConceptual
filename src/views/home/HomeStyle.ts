@@ -53,7 +53,7 @@ export const useHomeStyle = () => {
         paddingBottom: hp(34),
       },
       footerIndicator: {
-        marginTop: hp(12),
+        marginTop: hp(6),
       },
       emptyLabel: {
         fontSize: 18,

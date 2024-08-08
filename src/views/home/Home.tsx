@@ -32,22 +32,26 @@ const Home = () => {
   }, [navigation, styles, onProfilePress]);
 
   const renderFooter = useCallback(() => {
-    if (isFetching && productList?.length && !isLastPage) {
+    if ((isFetching || isLoading) && productList?.length && !isLastPage) {
       return (
         <View style={styles.footerIndicator}>
-          <ActivityIndicator />
+          <ActivityIndicator size={'small'} color={DEFAULT_COLORS.primary} />
         </View>
       );
     }
     return <></>;
-  }, [isFetching, isLastPage, productList?.length, styles.footerIndicator]);
+  }, [
+    isFetching,
+    isLastPage,
+    isLoading,
+    productList?.length,
+    styles.footerIndicator,
+  ]);
 
-  const renderEmpty = useCallback(() => {
-    if (!isFetching && !isLoading && !productList?.length) {
-      return <AppText style={styles.emptyLabel}>{'No data found'}</AppText>;
-    }
-    return <></>;
-  }, [isFetching, isLoading, productList?.length, styles.emptyLabel]);
+  const renderEmpty = useCallback(
+    () => <AppText style={styles.emptyLabel}>{'No data found'}</AppText>,
+    [styles.emptyLabel],
+  );
 
   return (
     <View style={styles.container}>
